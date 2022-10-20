@@ -11,10 +11,15 @@ import {
   Keyboard,
 } from 'react-native';
 
-const AddTodo = () => {
+interface AddTodoProps {
+  onInsert: (text: string) => void;
+}
+
+const AddTodo = ({onInsert}: AddTodoProps) => {
   const [text, setText] = useState<string>('');
 
   const onPress = () => {
+    onInsert(text);
     setText('');
 
     /* 현재 나타난 키보드를 닫음 */
