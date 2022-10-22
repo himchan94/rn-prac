@@ -12,6 +12,7 @@ import DateHead from './components/DateHead';
 import AddTodo from './components/AddTodo';
 import Empty from './components/Empty';
 import TodoList from './components/TodoList';
+import todosStorage from './storages/todoStorage';
 
 const App = () => {
   const [todos, setTodos] = useState<Todos>([
@@ -24,28 +25,12 @@ const App = () => {
 
   // 로드
   useEffect(() => {
-    const load = async () => {
-      try {
-        const rawTodos: any = await AsyncStorage.getItem('todos');
-        const savedTodos = JSON.parse(rawTodos);
-        setTodos(savedTodos);
-      } catch (e) {
-        console.log('Failed to save todos');
-      }
-    };
-    load();
-  }, [todos]);
+    todosStorage.get().then(setTodos).catch(console.error);
+  }, []);
 
   // 저장
   useEffect(() => {
-    const save = async () => {
-      try {
-        await AsyncStorage.setItem('todos', JSON.stringify(todos));
-      } catch (e) {
-        console.log('Failed to save todos');
-      }
-    };
-    save();
+    todosStorage.set(todos).catch(console.error);
   }, [todos]);
 
   const onInsert = (text: string) => {
