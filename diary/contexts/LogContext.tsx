@@ -1,7 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, Dispatch, SetStateAction} from 'react';
 import {createContext} from 'react';
 
-const LogContext = createContext('안녕하새여');
+interface LogContextInterface {
+  text: string;
+  setText: Dispatch<SetStateAction<string>>;
+}
+
+const LogContext = createContext<LogContextInterface>({});
 
 export default LogContext;
 
