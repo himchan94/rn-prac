@@ -4,7 +4,11 @@ import {Pressable, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TransparentCircleButton from './TransparentCircleButton';
 
-function WriteHeader() {
+interface writeHeaderProps {
+  onSave: () => void;
+}
+
+function WriteHeader({onSave}: writeHeaderProps) {
   const navigation = useNavigation();
   const popAction = StackActions.pop();
 
@@ -26,6 +30,11 @@ function WriteHeader() {
           name="delete-forever"
           color="#ef5350"
           hasMarginRight
+        />
+        <TransparentCircleButton
+          name="check"
+          color="#0009688"
+          onPress={onSave}
         />
       </View>
     </View>

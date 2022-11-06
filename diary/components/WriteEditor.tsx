@@ -1,11 +1,11 @@
 import {StyleSheet, Text, TextInput, View} from 'react-native';
-import React, {useRef} from 'react';
+import React, {useRef, Dispatch} from 'react';
 
 interface WriteEditorProps {
   title: string;
   body: string;
-  onChangeTitle: () => void;
-  onChangeBody: () => void;
+  onChangeTitle: Dispatch<React.SetStateAction<string>>;
+  onChangeBody: Dispatch<React.SetStateAction<string>>;
 }
 
 const WriteEditor = ({
@@ -14,7 +14,7 @@ const WriteEditor = ({
   onChangeTitle,
   onChangeBody,
 }: WriteEditorProps) => {
-  const bodyRef = useRef();
+  const bodyRef = useRef<TextInput>(null!);
 
   return (
     <View style={styles.block}>
@@ -33,7 +33,7 @@ const WriteEditor = ({
         style={styles.bodyInput}
         multiline
         textAlignVertical="top"
-        onChange={onChangeBody}
+        onChangeText={onChangeBody}
         value={body}
         ref={bodyRef}
       />
